@@ -1,30 +1,20 @@
 from flask import Flask, request, jsonify
-import requests
+import os
 
 app = Flask(__name__)
 
-ACCESS_TOKEN = "50000501234qsnZxgvELth0OH7CBxiNu1hImSgXeztmD1B1cca3313ovaRqpjBT0MJYi"
+@app.route('/')
+def home():
+    return "האפליקציה שלך עובדת! 🚀"
 
-@app.route('/search', methods=['GET'])
+@app.route('/search')
 def search():
-    keyword = request.args.get('q')
-    if not keyword:
-        return jsonify({"error": "Missing 'q' parameter"}), 400
+    query = request.args.get("q")
+    if not query:
+        return jsonify({"error": "Missing query parameter"}), 400
+    # כאן תהיה קריאה ל־AliExpress API או תוצאה מזויפת
+    return jsonify({"results": [f"Fake result for '{query}'"]})
 
-    url = "https://api-sg.aliexpress.com/sync_search"
-    headers = {
-        "Authorization": f"Bearer {ACCESS_TOKEN}"
-    }
-    params = {
-        "keywords": keyword,
-        "page_size": 10,
-        "language": "en"
-    }
-    response = requests.get(url, headers=headers, params=params)
-    try:
-        return jsonify(response.json())
-    except Exception:
-        return response.text
-
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
