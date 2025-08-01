@@ -1,0 +1,16 @@
+services:
+  - type: web
+    name: aliexpress-ai-app
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    plan: free
+    envVars:
+      - key: ACCESS_TOKEN
+        value: 50000501234qsnZxgvELth0OH7CBxiNu1hImSgXeztmD1B1cca3313ovaRqpjBT0MJYi
+      - key: REFRESH_TOKEN
+        value: 50001500a34Og47gApXQthhYKUDIxEUrkbEjy3Ms2dIEOj1dd97a83vkq0BWqYVt1YY2
+      - key: APP_KEY
+        value: 517514
+      - key: APP_SECRET
+        value: ikwGsyb4mcavt2EaiDLSwmohxFfX0AUN
