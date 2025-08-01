@@ -1,14 +1,13 @@
 from flask import Flask, render_template, request
+from search import search_aliexpress
+
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET', 'POST'])
 def home():
-    return render_template('index.html')
-
-@app.route('/search', methods=['POST'])
-def search():
-    query = request.form['query']
-    return f"Search requested for: {query}"
-
-if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=10000)
+    results = []
+    if request.method == "POST":
+        q = request.form.get("query")
+        data = search_aliexpress(q)
+        results = data.get("result", {}).get("products", [])
+    return render_template("index.html", results=results)
