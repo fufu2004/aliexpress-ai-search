@@ -1,75 +1,23 @@
-<!DOCTYPE html>
+
+<!doctype html>
 <html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>AliExpress AI Search App</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 20px;
-            background: #fff;
-            direction: rtl;
-        }
-        h1 {
-            color: #d62d2d;
-        }
-        form {
-            margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 60%;
-            padding: 10px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 15px;
-            font-size: 16px;
-            background-color: #d62d2d;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .results {
-            margin-top: 30px;
-        }
-        .result-item {
-            margin-bottom: 15px;
-            border-bottom: 1px solid #ddd;
-            padding-bottom: 10px;
-        }
-        .result-item a {
-            text-decoration: none;
-            color: #0077cc;
-        }
-    </style>
-</head>
-<body>
-
-<h1>חיפוש מוצרים ב-AliExpress</h1>
-
-<form method="POST">
-    <input type="text" name="query" placeholder="הקלד כאן...">
-    <button type="submit">חפש</button>
-</form>
-
-{% if query %}
-    <p>תוצאות עבור: <strong>{{ query }}</strong></p>
-{% endif %}
-
-<div class="results">
+  <head>
+    <meta charset="utf-8">
+    <title>חיפוש מוצרים באלי אקספרס</title>
+  </head>
+  <body>
+    <h1>חיפוש באלי אקספרס</h1>
+    <form method="post">
+      <input type="text" name="query" placeholder="מה אתה מחפש?" required>
+      <button type="submit">חפש</button>
+    </form>
     {% if results %}
+      <h2>תוצאות:</h2>
+      <ul>
         {% for item in results %}
-            <div class="result-item">
-                <a href="{{ item.url }}" target="_blank">
-                    <strong>{{ item.title }}</strong>
-                </a><br>
-                <span>{{ item.price }}</span>
-            </div>
+          <li>{{ item.title }}{% if item.url %} - <a href="{{ item.url }}">לינק</a>{% endif %}</li>
         {% endfor %}
-    {% elif query %}
-        <p>לא נמצאו תוצאות.</p>
+      </ul>
     {% endif %}
-</div>
-
-</body>
+  </body>
 </html>
