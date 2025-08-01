@@ -1,21 +1,16 @@
-from flask import Flask, request, jsonify
-from search import search_aliexpress_products
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
-ACCESS_TOKEN = "50000501234qsnZxgvELth0OH7CBxiNu1hImSgXeztmD1B1cca3313ovaRqpjBT0MJYi"
-
-@app.route("/")
+@app.route('/')
 def home():
-    return "AliExpress AI Search App"
+    return render_template('index.html')
 
-@app.route("/search", methods=["GET"])
+@app.route('/search')
 def search():
-    query = request.args.get("q")
-    if not query:
-        return jsonify({"error": "Missing query parameter 'q'"}), 400
-    data = search_aliexpress_products(query, ACCESS_TOKEN)
-    return jsonify(data)
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=10000)
+    query = request.args.get('query')
+    # כאן תכניס את הלוגיקה של חיפוש באלי אקספרס עם API
+    return jsonify({'results': [
+        {'title': 'דוגמה 1', 'url': 'https://example.com/item1'},
+        {'title': 'דוגמה 2', 'url': 'https://example.com/item2'}
+    ]})
