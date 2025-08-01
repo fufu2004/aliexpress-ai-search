@@ -1,23 +1,28 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="he" dir="rtl">
-  <head>
-    <meta charset="utf-8">
-    <title>חיפוש מוצרים באלי אקספרס</title>
-  </head>
-  <body>
-    <h1>חיפוש באלי אקספרס</h1>
-    <form method="post">
-      <input type="text" name="query" placeholder="מה אתה מחפש?" required>
-      <button type="submit">חפש</button>
+<head>
+    <meta charset="UTF-8">
+    <title>חיפוש AliExpress</title>
+</head>
+<body>
+    <h1>חיפוש מוצרים ב-AliExpress</h1>
+    <form method="POST" action="/search">
+        <label for="query">מה אתה מחפש?</label>
+        <input type="text" id="query" name="query" required>
+        <button type="submit">חפש</button>
     </form>
     {% if results %}
-      <h2>תוצאות:</h2>
-      <ul>
+        <h2>תוצאות:</h2>
+        <ul>
         {% for item in results %}
-          <li>{{ item.title }}{% if item.url %} - <a href="{{ item.url }}">לינק</a>{% endif %}</li>
+            <li>
+                <a href="{{ item.url }}" target="_blank">{{ item.title }}</a><br>
+                <img src="{{ item.image }}" width="120"><br>
+                מחיר: {{ item.price }}
+            </li>
         {% endfor %}
-      </ul>
+        </ul>
     {% endif %}
-  </body>
+</body>
 </html>
