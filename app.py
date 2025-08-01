@@ -1,16 +1,14 @@
-from flask import Flask, render_template, request, jsonify
-
+from flask import Flask, render_template, request
 app = Flask(__name__)
 
 @app.route('/')
 def home():
     return render_template('index.html')
 
-@app.route('/search')
+@app.route('/search', methods=['POST'])
 def search():
-    query = request.args.get('query')
-    # כאן תכניס את הלוגיקה של חיפוש באלי אקספרס עם API
-    return jsonify({'results': [
-        {'title': 'דוגמה 1', 'url': 'https://example.com/item1'},
-        {'title': 'דוגמה 2', 'url': 'https://example.com/item2'}
-    ]})
+    query = request.form['query']
+    return f"Search requested for: {query}"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=10000)
