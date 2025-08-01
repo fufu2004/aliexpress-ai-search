@@ -1,55 +1,20 @@
-<!-- templates/index.html -->
-<!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <title>חיפוש באלי אקספרס</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            text-align: center;
-            padding: 50px;
-        }
-        input[type="text"] {
-            padding: 10px;
-            width: 300px;
-            font-size: 16px;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            margin-right: 10px;
-        }
-        .results {
-            margin-top: 40px;
-        }
-        .item {
-            border: 1px solid #ccc;
-            padding: 15px;
-            margin: 10px auto;
-            width: 80%;
-            text-align: right;
-        }
-    </style>
-</head>
-<body>
-    <h1>חיפוש פריטים באלי אקספרס</h1>
-    <form method="post">
-        <input type="text" name="query" placeholder="הקלד מה אתה מחפש..." required>
-        <button type="submit">חפש</button>
-    </form>
+<form method="post">
+    <input type="text" name="query" placeholder="מה אתה מחפש?" required>
+    <button type="submit">חפש</button>
+</form>
 
-    {% if results %}
-    <div class="results">
-        <h2>תוצאות:</h2>
-        {% for item in results %}
-        <div class="item">
-            <strong>{{ item.title }}</strong><br>
-            <a href="{{ item.link }}" target="_blank">לצפייה בפריט</a>
-        </div>
-        {% endfor %}
+{% if results %}
+  <h2>תוצאות:</h2>
+  {% for item in results %}
+    <div class="item">
+      <strong>{{ item.productTitle }}</strong><br>
+      <img src="{{ item.imageUrl }}" width="120">
+      <br><a href="{{ item.productUrl }}" target="_blank">הצג פריט</a>
+      <br>מחיר: {{ item.salePrice }}
     </div>
-    {% endif %}
-</body>
-</html>
+  {% endfor %}
+{% else %}
+  {% if results is not none %}
+    <p>לא נמצאו תוצאות.</p>
+  {% endif %}
+{% endif %}
