@@ -3,26 +3,19 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>חיפוש AliExpress</title>
+    <title>חיפוש באלי אקספרס</title>
 </head>
 <body>
-    <h1>חיפוש מוצרים ב-AliExpress</h1>
-    <form method="POST" action="/search">
-        <label for="query">מה אתה מחפש?</label>
-        <input type="text" id="query" name="query" required>
-        <button type="submit">חפש</button>
+    <h1>חיפוש באלי אקספרס</h1>
+    <form method="post">
+        <input type="text" name="query" placeholder="מה אתה מחפש?">
+        <input type="submit" value="חפש">
     </form>
-    {% if results %}
-        <h2>תוצאות:</h2>
-        <ul>
+    <h3>תוצאות:</h3>
+    <ul>
         {% for item in results %}
-            <li>
-                <a href="{{ item.url }}" target="_blank">{{ item.title }}</a><br>
-                <img src="{{ item.image }}" width="120"><br>
-                מחיר: {{ item.price }}
-            </li>
+            <li>{{ item }}</li>
         {% endfor %}
-        </ul>
-    {% endif %}
+    </ul>
 </body>
 </html>
