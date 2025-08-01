@@ -1,20 +1,21 @@
 from flask import Flask, request, jsonify
-import os
+from search import search_aliexpress_products
 
 app = Flask(__name__)
 
-@app.route('/')
-def home():
-    return "האפליקציה שלך עובדת! 🚀"
+ACCESS_TOKEN = "50000501234qsnZxgvELth0OH7CBxiNu1hImSgXeztmD1B1cca3313ovaRqpjBT0MJYi"
 
-@app.route('/search')
+@app.route("/")
+def home():
+    return "AliExpress AI Search App"
+
+@app.route("/search", methods=["GET"])
 def search():
     query = request.args.get("q")
     if not query:
-        return jsonify({"error": "Missing query parameter"}), 400
-    # כאן תהיה קריאה ל־AliExpress API או תוצאה מזויפת
-    return jsonify({"results": [f"Fake result for '{query}'"]})
+        return jsonify({"error": "Missing query parameter 'q'"}), 400
+    data = search_aliexpress_products(query, ACCESS_TOKEN)
+    return jsonify(data)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port)
+    app.run(host="0.0.0.0", port=10000)
